@@ -1,6 +1,11 @@
-class Graph:
-    def __init__(self,  size):
-        self.size = size
 
-    def add_edge(self, edge):
-        return 'hello world'
+class Graph:
+    data = 0
+    def __init__(self, num):
+        self.data = num
+
+    def function(self):
+        print("This is a message inside the class." + str(self.data))
+
+myobjectx = Graph(10)
+myobjectx.function()
