@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "Graph.h"
 
 int main(int argc, char* argv[]) {
         std::fstream graphFile;
@@ -32,8 +33,3 @@ int main(int argc, char* argv[]) {
             return 0;
     }
 }
-
-struct Node {
-    Node *neighbours;
-    int value;
-};
