@@ -5,9 +5,12 @@ v1 = 0
 v2 = 0
 cost = 0
 pizza = False
+
 num_nodes = file.readline()
-graph = Graph(num_nodes)
-print(graph.add_edge(1))
+
+# graph = Graph(num_nodes)
+# print(graph.add_edge(1))
+
 print('n: '+ str(num_nodes))
 for line in file:
     print(line)
