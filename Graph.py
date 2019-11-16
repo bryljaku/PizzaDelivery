@@ -7,5 +7,3 @@ class Graph:
     def add_edge(self, edge):
         print("This is a message inside the class." + str(self.data))
 
-myobjectx = Graph(10)
-myobjectx.function()
