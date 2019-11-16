@@ -32,3 +32,8 @@ int main(int argc, char* argv[]) {
             return 0;
     }
 }
+
+struct Node {
+    Node *neighbours;
+    int value;
+};
