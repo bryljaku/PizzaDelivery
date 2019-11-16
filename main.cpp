@@ -30,5 +30,5 @@ int main(int argc, char* argv[]) {
             
             graphFile.close();
             return 0;
-}
+    }
 }
