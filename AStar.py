@@ -2,9 +2,9 @@ class Node:
     neighbours = []
     heuristicToPizzeria = 0
 
-    def __init__(self, neighbours=[], heuristicToPizza=0):
+    def __init__(self, neighbours=[], heuristicToPizzeria=0):
         self.neighbours = neighbours
-        self.heuristicToPizzeria = heuristicToPizza
+        self.heuristicToPizzeria = heuristicToPizzeria
 
 
 class State:
@@ -22,7 +22,7 @@ class State:
             states.append(State(p, self.cost + 5, node.heuristicToPizzeria))  # todo correct cost calulation
 
 
-def findCheapestFromArr(arr):
+def findCheapestInArrayOfStates(arr):
     cheapest = arr[0]
     for s in arr:
         if s.cost + s.heuristic < cheapest.cost + cheapest.heuristic:
@@ -39,7 +39,7 @@ def search(start, end):
     """
     toVisitStates = [State([start], 0, 10)]
     while len(toVisitStates) > 0:
-        currentState = findCheapestFromArr(toVisitStates)
+        currentState = findCheapestInArrayOfStates(toVisitStates)
         if end in currentState.path:
             return currentState
         toVisitStates.pop()
