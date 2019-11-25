@@ -1,40 +1,68 @@
 import typing
+from queue import PriorityQueue
+from Graph import *
 
-class State:
-    def __init__(self, path=[], cost=0, heuristic=0):
-        self.path = path
-        self.cost = cost
-        self.heuristic = heuristic
-
-    def getNextStates(self) -> typing.List:
-        states = []
-        for node in self.path[-1].neighbours:
-            if node in self.path:
-                continue
-            p = self.path.append(node)
-            states.append(State(p, self.cost + 5, node.heuristicToPizzeria))  # todo correct cost calulation
-        return states
-
-def findCheapestInArrayOfStates(arr: typing.List[State]) -> State:
-    cheapest = arr[0]
-    for s in arr:
-        if s.cost + s.heuristic < cheapest.cost + cheapest.heuristic:
-            cheapest = s
-    return cheapest
+def calculateHeuristic(nodeA: Node, nodeB: Node) -> float:
+    distX = (nodeA.x - nodeB.x)
+    distY = (nodeA.y - nodeB.y)
+    return math.sqrt((distX * distX) + (distY * distY))
 
 
-def search(start, end):
-    """
-    start - start node of a graph
-    end - end node of a graph
+def reconstructPath(cameFrom, goal):
+    path = [goal]
+    curr = goal
+    while cameFrom[goal]:
+        curr = cameFrom[goal]
+        path.append(curr)
+    path.reverse()
+    return path
 
-    returns a path of nodes
-    """
-    toVisitStates = [State([start], 0, 10)]
-    while len(toVisitStates) > 0:
-        currentState = findCheapestInArrayOfStates(toVisitStates)
-        if end in currentState.path:
-            return currentState
-        toVisitStates.pop()
-        toVisitStates.append(currentState.getNextStates)
-    print("given graph is corrupted")
+def aStarSearch(graph: Graph, start: Node, goal: Node):
+    toVisit = PriorityQueue()
+    toVisit.put(start, 0)
+    cameFrom = {}
+    currentCost = {}
+    cameFrom[start] = None
+    currentCost[start] = 0
+
+    while not toVisit.empty():
+        current = toVisit.get()
+
+        if current == goal:
+            break
+
+        for node in graph.getNode(current.nodeId).neighbors.values():
+            next = graph.getNode(node.nodeId)
+            newCost = currentCost[current] + graph.cost(current, next)
+            if next not in currentCost or newCost < currentCost[next]:
+                currentCost[next] = newCost
+                priority = newCost + calculateHeuristic(goal, next)
+                toVisit.put(next, priority)
+                cameFrom[next] = current
+
+    return reconstructPath(cameFrom, goal), currentCost
+
+
+n1 = Node(0, 1, 1)
+n2 = Node(1, 4, 4)
+n3 = Node(2, 15, 10)
+n4 = Node(3, 12, 10)
+
+graph = Graph()
+
+graph.addNode(n1)
+graph.addNode(n2)
+graph.addNode(n3)
+graph.addNode(n4)
+
+graph.addEdge(n1, n2, 3)
+graph.addEdge(n1, n3, 6)
+graph.addEdge(n3, n4, 4)
+
+print(graph.getNode(n1.nodeId).neighbors)
+print('id  cost')
+for node in graph.nodes.values():
+    for key, value in graph.getNode(node.nodeId).neighbors.items():
+        print(str(node.nodeId) + ' -> ' + str(key) + ' = ' + str(value.distance))
+
+aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId))
