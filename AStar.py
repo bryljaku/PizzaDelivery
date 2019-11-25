@@ -1,11 +1,25 @@
+import math
+
 class Node:
     neighbours = []
-    heuristicToPizzeria = 0
+    x = 0
+    y = 0
 
-    def __init__(self, neighbours=[], heuristicToPizzeria=0):
+    def __init__(self, x, y, neighbours=[]):
+        self.x = x
+        self.y = y
         self.neighbours = neighbours
-        self.heuristicToPizzeria = heuristicToPizzeria
+class Edge:
+    def __init__(self, nodeA, nodeB, length):
+        self.nodeA = nodeA
+        self.nodeB = nodeB
+        self.length = length
 
+
+def calculateDistance(nodeA: Node, nodeB: Node) -> int:
+    distX = (nodeA.x-nodeB.x)
+    distY = (nodeA.y-nodeB.y)
+    return math.sqrt((distX*distX)+(distY*distY))
 
 class State:
     def __init__(self, path=[], cost=0, heuristic=0):
@@ -16,10 +30,10 @@ class State:
     def getNextStates(self):
         states = []
         for node in self.path[-1].neighbours:
-            if node in self.path:
-                continue
-            p = self.path.append(node)
-            states.append(State(p, self.cost + 5, node.heuristicToPizzeria))  # todo correct cost calulation
+                if node in self.path:
+                    continue
+                p = self.path.append(node)
+                states.append(State(p, self.cost + 5, node.heuristicToPizzeria))  # todo correct cost calulation
 
 
 def findCheapestInArrayOfStates(arr):
