@@ -1,5 +1,5 @@
 import typing
-from queue import PriorityQueue
+from PriorityQueue import HeapPriorityQueue as PriorityQueue
 from Graph import *
 
 def calculateHeuristic(nodeA: Node, nodeB: Node) -> float:
@@ -18,7 +18,7 @@ def reconstructPath(cameFrom, goal):
     return path
 
 def aStarSearch(graph: Graph, start: Node, goal: Node):
-    toVisit = PriorityQueue()
+    toVisit:PriorityQueue[Node] = PriorityQueue()
     toVisit.put(start, 0)
     cameFrom = {}
     currentCost = {}
@@ -27,7 +27,7 @@ def aStarSearch(graph: Graph, start: Node, goal: Node):
 
     while not toVisit.empty():
         current = toVisit.get()
-
+        print(current.nodeId)
         if current == goal:
             break
 
@@ -65,4 +65,4 @@ for node in graph.nodes.values():
     for key, value in graph.getNode(node.nodeId).neighbors.items():
         print(str(node.nodeId) + ' -> ' + str(key) + ' = ' + str(value.distance))
 
-aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId))
+print(aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId)))

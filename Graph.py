@@ -10,7 +10,7 @@ class Neighbor:
 
 class Node:
     nodeId: int
-    neighbors = {}
+    neighbors: DefaultDict[(int, Neighbor)] = {}
     x: float = 0
     y: float = 0
 
@@ -32,8 +32,8 @@ class Edge:
 
 class Graph:
     def __init__(self):
-        self.nodes = {}
-        self.edges = []
+        self.nodes: DefaultDict[(int, Node)] = {}
+        self.edges: List[Edge] = []
 
     def addNode(self, node: Node):
         self.nodes[node.nodeId] = node
@@ -46,8 +46,8 @@ class Graph:
     def getNode(self, nodeId: int) -> Node:
         return self.nodes[nodeId]
 
-    def cost(self, nodeA: Node, nodeB: Node):
+    def cost(self, nodeA: Node, nodeB: Node) -> float:
         return self.nodes[nodeA.nodeId].neighbors[nodeB.nodeId].distance
 
-    def neighbors(self, node: Node):
+    def neighbors(self, node: Node) -> DefaultDict[(int, Neighbor)]:
         return self.nodes[node.nodeId].neighbors
