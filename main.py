@@ -1,10 +1,7 @@
 from Graph import Graph
 from AStar import a_star
 def boolFromChar(c):
-    if c == 'f':
-        return False
-    else:
-        return True
+    return not 'f' == c
 
 file = open('graf0.txt', 'r')
 v1 = 0
