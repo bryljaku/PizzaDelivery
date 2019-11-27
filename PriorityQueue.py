@@ -5,7 +5,7 @@ class HeapPriorityQueue:
     def __init__(self):
         self.vals = []
 
-    def empty(self):
+    def empty(self) -> bool:
         return len(self.vals) == 0
 
     def put(self, item, priority):

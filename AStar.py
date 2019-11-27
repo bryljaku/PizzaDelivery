@@ -11,8 +11,8 @@ def calculateHeuristic(nodeA: Node, nodeB: Node) -> float:
 def reconstructPath(cameFrom, goal):
     path = [goal]
     curr = goal
-    while cameFrom[goal]:
-        curr = cameFrom[goal]
+    while cameFrom[curr] is not None:
+        curr = cameFrom[curr]
         path.append(curr)
     path.reverse()
     return path
@@ -65,4 +65,7 @@ for node in graph.nodes.values():
     for key, value in graph.getNode(node.nodeId).neighbors.items():
         print(str(node.nodeId) + ' -> ' + str(key) + ' = ' + str(value.distance))
 
-print(aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId)))
+ret = aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId))
+
+for a in ret:
+    print
