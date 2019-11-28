@@ -29,7 +29,6 @@ class Edge:
         self.nodeB = nodeB
         self.length = length
 
-
 class Graph:
     def __init__(self):
         self.nodes: DefaultDict[(int, Node)] = {}

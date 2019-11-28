@@ -8,7 +8,7 @@ def calculateHeuristic(nodeA: Node, nodeB: Node) -> float:
     return math.sqrt((distX * distX) + (distY * distY))
 
 
-def reconstructPath(cameFrom, goal):
+def reconstructPath(cameFrom, goal:Node):
     path = [goal]
     curr = goal
     while cameFrom[curr] is not None:
@@ -40,5 +40,5 @@ def aStarSearch(graph: Graph, start: Node, goal: Node):
                 toVisit.put(next, priority)
                 cameFrom[next] = current
 
-    return reconstructPath(cameFrom, goal), currentCost
+    return (reconstructPath(cameFrom, goal), currentCost)
 
