@@ -3,8 +3,6 @@ from typing import *
 from Graph import Graph, Node, Edge
 
 def pizzaSearch(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
-    
-    assert(edges in graph.edges)
     path = []
     currentCost = 0
     toVisit = edges

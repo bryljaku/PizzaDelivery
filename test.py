@@ -19,9 +19,15 @@ graph.addEdge(n3, n4, 4)
 
 print(graph.getNode(n1.nodeId).neighbors)
 print('id  cost')
+# for node in graph.nodes.values():
+#     for key, value in node.adj.items():
+#         print(str(node.nodeId) + ' -> ' + str(key) + ' = ' + str(value.distance))
+
 for node in graph.nodes.values():
-    for key, value in graph.getNode(node.nodeId).neighbors.items():
-        print(str(node.nodeId) + ' -> ' + str(key) + ' = ' + str(value.distance))
+    print('\n')
+    print(node.nodeId)
+    for key, value in node.costs.items():
+        print(str(key) + str(value))
 
 ret = aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId))
 
