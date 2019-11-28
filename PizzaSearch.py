@@ -22,8 +22,9 @@ def pizzaSearch(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
         currentPath = aStarSearch(graph, currentNode, currentGoal)
         if currentPath[-2] != nodeAfterGoal:
             currentPath.append(nodeAfterGoal)
+        
+        toVisit = removeVisitedEdges(currentPath, toVisit)
         path.append(currentPath)
-
 
     if  currentNode != pizzeria:
         path.append(aStarSearch(currentNode, pizzeria))
@@ -31,7 +32,16 @@ def pizzaSearch(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
     return path
 
 
-
+def removeVisitedEdges(path: List[Node], toVisit: List[Edge]):
+    ret: List[Edge] = toVisit
+    int i = 0
+    while(i+1 < len(path)):
+        val1 = path[i]
+        val2 = path[i+1]
+        for e in ret:
+            if (e.nodeA.nodeId == val1.nodeId && e.nodeB.nodeId == val2.nodeId || e.nodeA.nodeId == val2.nodeId && e.nodeB.nodeId == val1.nodeId):
+                ret.remove(e)
+    return ret
 
 
 
