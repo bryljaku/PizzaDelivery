@@ -7,15 +7,11 @@ class Neighbor:
         self.distance = distance
 
 class Node:
-    nodeId: int
-    neighbors: DefaultDict[(int, Neighbor)] = {}
-    x: float = 0
-    y: float = 0
-
     def __init__(self, nodeId: int, x: float, y: float):
         self.nodeId = nodeId
         self.x = x
         self.y = y
+        self.neighbors: DefaultDict[(int, Neighbor)] = {}
 
     def addNeighbor(self, neighbor, distance: float):
         n = Neighbor(neighbor.nodeId, distance)
