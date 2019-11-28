@@ -11,7 +11,7 @@ def calculateHeuristic(nodeA: Node, nodeB: Node) -> float:
 def reconstructPath(cameFrom, goal:Node):
     path = [goal]
     curr = goal
-    while cameFrom[curr] is not None:
+    while curr in cameFrom.keys():
         curr = cameFrom[curr]
         path.append(curr)
     path.reverse()

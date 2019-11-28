@@ -21,9 +21,17 @@ class Node:
         n = Neighbor(neighbor.nodeId, distance)
         self.neighbors[neighbor.nodeId] = n
 
+
+class Edge:
+    def __init__(self, nodeA: int, nodeB: int, length: float):
+        self.nodeA = nodeA
+        self.nodeB = nodeB
+        self.length = length
+
 class Graph:
     def __init__(self):
         self.nodes: DefaultDict[(int, Node)] = {}
+        self.edges: List[Edge] = []
 
     def addNode(self, node: Node):
         self.nodes[node.nodeId] = node
@@ -31,6 +39,7 @@ class Graph:
     def addEdge(self, nodeA: Node, nodeB: Node, dist: float):
         self.nodes[nodeA.nodeId].addNeighbor(self.nodes[nodeB.nodeId], dist)
         self.nodes[nodeB.nodeId].addNeighbor(self.nodes[nodeA.nodeId], dist)
+        self.edges.append(Edge(nodeA.nodeId, nodeB.nodeId, dist))
 
     def getNode(self, nodeId: int) -> Node:
         return self.nodes[nodeId]
