@@ -18,13 +18,14 @@ graph.addEdge(n1, n3, 6)
 graph.addEdge(n3, n4, 4)
 
 
-print(graph.getNode(n1.nodeId).neighbors)
+# print(graph.getNodeByID(n1.nodeId).neighbors)
+print(n1.neighbors)
 print('id  cost')
 for node in graph.nodes.values():
-    for key, value in graph.getNode(node.nodeId).neighbors.items():
+    for key, value in graph.getNodeByID(node.nodeId).neighbors.items(): #for key, value in node.neighbors.items():
         print(str(node.nodeId) + ' -> ' + str(key) + ' = ' + str(value.distance))
 
-# ret = aStarSearch(graph, graph.getNode(n1.nodeId), graph.getNode(n4.nodeId))
+# ret = aStarSearch(graph, graph.getNodeByID(n1.nodeId), graph.getNodeByID(n4.nodeId))
 ret = pizzaSearch(graph, graph.nodes[n1.nodeId], [graph.edges[2]])
 for a in ret:
     print

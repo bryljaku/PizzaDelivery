@@ -37,11 +37,11 @@ class Graph:
         self.nodes[nodeB.nodeId].addNeighbor(self.nodes[nodeA.nodeId], dist)
         self.edges.append(Edge(nodeA.nodeId, nodeB.nodeId, dist))
 
-    def getNode(self, nodeId: int) -> Node:
+    def getNodeByID(self, nodeId: int) -> Node:
         return self.nodes[nodeId]
 
-    def cost(self, nodeA: Node, nodeB: Node) -> float:
+    def getCost(self, nodeA: Node, nodeB: Node) -> float:
         return self.nodes[nodeA.nodeId].neighbors[nodeB.nodeId].distance
 
-    def neighbors(self, node: Node) -> DefaultDict[(int, Neighbor)]:
+    def getNeighbors(self, node: Node) -> DefaultDict[(int, Neighbor)]:
         return self.nodes[node.nodeId].neighbors
