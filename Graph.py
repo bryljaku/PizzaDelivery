@@ -1,5 +1,8 @@
 import math
 from typing import *
+# from AStar import calculateHeuristic
+
+
 
 class Neighbor:
     def __init__(self, nodeId: int, distance: float):
@@ -12,6 +15,18 @@ class Node:
         self.x = x
         self.y = y
         self.neighbors: DefaultDict[(int, Neighbor)] = {}
+
+    def __lt__(self, other):
+        return self.nodeId < other.nodeId
+
+    def __le__(self, other):
+        return self.nodeId <= other.nodeId
+
+    def __gt__(self, other):
+        return self.nodeId > other.nodeId
+
+    def __ge__(self, other):
+        return self.nodeId >= other.nodeId
 
     def addNeighbor(self, neighbor, distance: float):
         n = Neighbor(neighbor.nodeId, distance)
@@ -32,10 +47,21 @@ class Graph:
     def addNode(self, node: Node):
         self.nodes[node.nodeId] = node
 
-    def addEdge(self, nodeA: Node, nodeB: Node, dist: float):
+    def createAndAddEdge(self, nodeA: Node, nodeB: Node, dist: float):
+        from AStar import calculateHeuristic  # circular dependencies occured
+        if not self.isDistanceCorrect(calculateHeuristic(nodeA, nodeB), dist):
+            raise Exception("Incorrect distance between node " + str(nodeA.nodeId) + " and node " + str(nodeB.nodeId))
         self.nodes[nodeA.nodeId].addNeighbor(self.nodes[nodeB.nodeId], dist)
         self.nodes[nodeB.nodeId].addNeighbor(self.nodes[nodeA.nodeId], dist)
         self.edges.append(Edge(nodeA.nodeId, nodeB.nodeId, dist))
+
+    def addEdge(self, edge: Edge):
+        nodeA = self.getNodeByID(edge.nodeA)
+        nodeB = self.getNodeByID(edge.nodeB)
+        return self.createAndAddEdge(nodeA, nodeB, edge.length)
+
+    def isDistanceCorrect(self, minimalDist: float, dist: float):  # to check heuristic condition
+        return dist >= minimalDist
 
     def getNodeByID(self, nodeId: int) -> Node:
         return self.nodes[nodeId]

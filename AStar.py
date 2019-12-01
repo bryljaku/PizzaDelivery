@@ -27,16 +27,19 @@ def aStarSearch(graph: Graph, start: Node, goal: Node):
     
     while not nodesToVisit.empty():
         current = nodesToVisit.get()
-        print(current.nodeId)
+        print("a star search, changed vertice(from toVisit) to: " + str(current.nodeId))
         if current == goal:
             break
 
         for node in graph.getNodeByID(current.nodeId).neighbors.values():  # current.neighbors.values()
-            next_node = graph.getNodeByID(node.nodeId)  # = node, not node bc node is Neighbor and node is Node
+            next_node = graph.getNodeByID(node.nodeId)
             newCost = currentCost[current] + graph.getCost(current, next_node)
             if next_node not in currentCost or newCost < currentCost[next_node]:  # if cost for next_node not calculated or found cheaper path
                 currentCost[next_node] = newCost
-                priority = newCost + calculateHeuristic(goal, next_node)
+                if next_node == goal:
+                    priority = 0
+                else:
+                    priority = newCost + calculateHeuristic(goal, next_node)
                 nodesToVisit.put(next_node, priority)
                 cameFrom[next_node] = current
 
