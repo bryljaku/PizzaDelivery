@@ -1,21 +1,22 @@
 from AStar import aStarSearch, calculateHeuristic
 from typing import *
 from Graph import Graph, Node, Edge
+import math
 
-def pizzaSearch(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
+def pizzaDelivery(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
     path = []
     cost = 0
     toVisit = edges
     currentNode = pizzeria
 
     while (len(toVisit) > 0):
-        closestEdge = getClosestEdge(graph, pizzeria, toVisit)
+        closestEdge = getClosestEdge(graph, currentNode, toVisit)
         if closestEdge is not None:
             nodeA = graph.getNodeByID(closestEdge.nodeA)
             nodeB = graph.getNodeByID(closestEdge.nodeB)
             currentGoal = nodeA
             nodeAfterGoal = nodeB
-            if (calculateHeuristic(currentNode, nodeA) > calculateHeuristic(currentNode, nodeB)):
+            if (calculateHeuristic(currentNode, nodeA) > calculateHeuristic(currentNode, nodeB) and nodeB != currentNode):
                 currentGoal = nodeB
                 nodeAfterGoal = nodeA
             currentPath, currentCost = aStarSearch(graph, currentNode, currentGoal)
@@ -25,9 +26,9 @@ def pizzaSearch(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
             toVisit = removeVisitedEdges(currentPath, toVisit)
             path.append(currentPath)
             currentNode = currentPath[-1]
-        else:
-            currentPath, currentCost = aStarSearch(currentNode, pizzeria)
-            path.append(currentPath)
+    else:
+        currentPath, currentCost = aStarSearch(graph, currentNode, pizzeria)
+        path.append(currentPath)
 
     return path
 
@@ -50,7 +51,7 @@ def removeVisitedEdges(path: List[Node], toVisit: List[Edge]):
 
 def getClosestEdge(graph: Graph, current: Node, toVisit: List[Edge]):
     closestEdge = None
-    currentDist = 99999
+    currentDist = math.inf
     for edge in toVisit:
         nodeA = graph.nodes[edge.nodeA]
         nodeB = graph.nodes[edge.nodeB]
