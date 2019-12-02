@@ -4,7 +4,7 @@ from PizzaDelivery import *
 import argparse
 
 parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
-parser.add_argument("-input", action="store", required=True, type=str, help="file")
+parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
 
 args = parser.parse_args()
 fileName = args.input
