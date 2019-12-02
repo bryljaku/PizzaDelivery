@@ -18,7 +18,7 @@ graph = Graph()
 #add nodes
 for line in file:
     l = line.rstrip('\n')
-    if l == '#':
+    if '#' in l:
         break
     dict = l.split(' ')
     nodeId = int(dict[0])
@@ -30,7 +30,7 @@ for line in file:
 pizzaEdges = []
 for line in file:
     l = line.rstrip('\n')
-    if l == 'eof':
+    if 'eof' in l:
         break
     dict = l.split(' ')
     nodeId1 = int(dict[0])
