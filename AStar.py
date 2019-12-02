@@ -2,6 +2,7 @@ import typing
 from HeapPriorityQueue import HeapPriorityQueue as PriorityQueue
 from Graph import *
 
+
 def calculateHeuristic(nodeA: Node, nodeB: Node) -> float:
     distX = (nodeA.x - nodeB.x)
     distY = (nodeA.y - nodeB.y)
@@ -16,6 +17,7 @@ def reconstructPath(cameFrom, goal: Node):
         path.append(curr)
     path.reverse()
     return path
+
 
 def aStarSearch(graph: Graph, start: Node, goal: Node):
     nodesToVisit: PriorityQueue[Node] = PriorityQueue()

@@ -3,6 +3,7 @@ from typing import *
 from Graph import Graph, Node, Edge
 import math
 
+
 def pizzaDelivery(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]:
     path = []
     cost = 0
@@ -16,7 +17,7 @@ def pizzaDelivery(graph: Graph, pizzeria: Node, edges: List[Edge]) -> List[Node]
             nodeB = graph.getNodeByID(closestEdge.nodeB)
             currentGoal = nodeA
             nodeAfterGoal = nodeB
-            if (calculateHeuristic(currentNode, nodeA) > calculateHeuristic(currentNode, nodeB) and nodeB != currentNode):
+            if ((calculateHeuristic(currentNode, nodeA) > calculateHeuristic(currentNode, nodeB) or currentGoal == currentNode) and nodeB != currentNode):
                 currentGoal = nodeB
                 nodeAfterGoal = nodeA
             currentPath, currentCost = aStarSearch(graph, currentNode, currentGoal)
