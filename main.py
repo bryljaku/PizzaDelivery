@@ -1,8 +1,10 @@
 from Graph import *
 from AStar import *
-from PizzaDelivery import *
+from PizzaSolver import *
 import argparse
 import itertools
+
+
 parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
 parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
 
@@ -44,6 +46,11 @@ file.close()
 
 
 start = graph.getNodeByID(pizzeria)
-a = list(map(lambda x: x.nodeId, itertools.chain.from_iterable(pizzaDelivery(graph, start, pizzaEdges))))
+fullPath = solvePizzaProblem(graph, start, pizzaEdges)
+print("\n" + "Full path: ")
+for node in fullPath:
+    print(node.nodeId)
 
-print(a)
+#a = list(map(lambda x: x.nodeId, itertools.chain.from_iterable(solvePizzaProblem(graph, start, pizzaEdges))))
+
+#print(a)

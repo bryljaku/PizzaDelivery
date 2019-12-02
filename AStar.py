@@ -29,7 +29,7 @@ def aStarSearch(graph: Graph, start: Node, goal: Node):
     
     while not nodesToVisit.empty():
         current = nodesToVisit.get()
-        print("a star search, changed vertice(from toVisit) to: " + str(current.nodeId))
+        #print("a star search, changed vertice(from toVisit) to: " + str(current.nodeId))
         if current == goal:
             break
 
