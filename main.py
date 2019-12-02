@@ -5,11 +5,11 @@ import argparse
 import itertools
 
 
-#parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
-#parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
+parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
+parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
 
-#args = parser.parse_args()
-fileName = 'graf0.txt'#args.input
+args = parser.parse_args()
+fileName = args.input
 file = open(fileName, 'r')
 
 # get pizzeria
