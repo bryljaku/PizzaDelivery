@@ -49,8 +49,8 @@ start = graph.getNodeByID(pizzeria)
 fullPath = solvePizzaProblem(graph, start, pizzaEdges)
 pathCost = 0
 print("\n" + "Full path: ")
-for node in fullPath:
-    print(node.nodeId)
+print(list(map(lambda x: x.nodeId, fullPath)))
+
 for i in range(0, len(fullPath) - 1):
     pathCost += graph.getCost(fullPath[i], fullPath[i+1])
 print("Cost of delivery: " + str(pathCost))
