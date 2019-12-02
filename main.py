@@ -5,11 +5,11 @@ import argparse
 import itertools
 
 
-parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
-parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
+#parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
+#parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
 
-args = parser.parse_args()
-fileName = args.input
+#args = parser.parse_args()
+fileName = 'graf0.txt'#args.input
 file = open(fileName, 'r')
 
 # get pizzeria
@@ -47,9 +47,13 @@ file.close()
 
 start = graph.getNodeByID(pizzeria)
 fullPath = solvePizzaProblem(graph, start, pizzaEdges)
+pathCost = 0
 print("\n" + "Full path: ")
 for node in fullPath:
     print(node.nodeId)
+for i in range(0, len(fullPath) - 1):
+    pathCost += graph.getCost(fullPath[i], fullPath[i+1])
+print("Cost of delivery: " + str(pathCost))
 
 #a = list(map(lambda x: x.nodeId, itertools.chain.from_iterable(solvePizzaProblem(graph, start, pizzaEdges))))
 

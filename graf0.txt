@@ -18,5 +18,5 @@ description:
     pizzeriaId
     nodes <nodeId, x, y>
     #
-    edges <nodeId, nodeId, distance, pizzaToDeliver?<p-positive, n-negative>>
+    edges <nodeId, nodeId, distance, pizzaToDeliver?<p-positive, f-negative>>
     eof
