@@ -2,7 +2,7 @@ from Graph import *
 from AStar import *
 from PizzaDelivery import *
 import argparse
-
+import itertools
 parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
 parser.add_argument("-input", action="store", required=True, type=str, help="Path to file with graph")
 
@@ -44,4 +44,6 @@ file.close()
 
 
 start = graph.getNodeByID(pizzeria)
-pizzaDelivery(graph, start, pizzaEdges)
+a = list(map(lambda x: x.nodeId, itertools.chain.from_iterable(pizzaDelivery(graph, start, pizzaEdges))))
+
+print(a)
