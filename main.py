@@ -1,32 +1,47 @@
-from Graph import Graph
-from AStar import a_star
-def boolFromChar(c):
-    return not 'f' == c
+from Graph import *
+from AStar import *
+from PizzaDelivery import *
+import argparse
 
-file = open('graf0.txt', 'r')
-v1 = 0
-v2 = 0
-cost = 0
-pizza = False
-num_nodes = file.readline()
+parser = argparse.ArgumentParser(description='PizzaDelivery path finder')
+parser.add_argument("-input", action="store", required=True, type=str, help="file")
 
-num_nodes = int(file.readline())
-graph = Graph(num_nodes)
-print('n: '+ str(num_nodes))
+args = parser.parse_args()
+fileName = args.input
+file = open(fileName, 'r')
 
+# get pizzeria
+pizzeria = int(file.readline())
+print(f'pizzeria = {pizzeria}')
+
+graph = Graph()
+#add nodes
 for line in file:
-    if line == 'eof':
+    l = line.rstrip('\n')
+    if l == '#':
         break
-    dict = line.split(' ')
-    v1 = dict[0]
-    v2 = dict[1]
-    cost = dict[2]
-    pizza = boolFromChar(dict[3])
+    dict = l.split(' ')
+    nodeId = int(dict[0])
+    x = float(dict[1])
+    y = float(dict[2])
+    graph.addNode(Node(nodeId, x, y))
 
-start = 0
-end  = num_nodes - 1
-
-a_star(graph, start, end)
+#add edges
+pizzaEdges = []
+for line in file:
+    l = line.rstrip('\n')
+    if l == 'eof':
+        break
+    dict = l.split(' ')
+    nodeId1 = int(dict[0])
+    nodeId2 = int(dict[1])
+    distance = float(dict[2])
+    e = Edge(nodeId1, nodeId2, distance)
+    if dict[3] == 'p':
+        pizzaEdges.append(e)
+    graph.addEdge(e)
 file.close()
 
 
+start = graph.getNodeByID(pizzeria)
+pizzaDelivery(graph, start, pizzaEdges)
